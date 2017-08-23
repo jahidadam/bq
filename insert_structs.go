@@ -6,7 +6,6 @@ import (
 	"reflect"
 
 	"cloud.google.com/go/bigquery"
-	"github.com/ggqq/reflection"
 )
 
 // InsertStructs uses the given bigquery client to insert the slice of
@@ -21,7 +20,7 @@ func InsertStructs(ctx context.Context, client *bigquery.Client, dataset, table 
 		return fmt.Errorf("InsertStructs can insert slice of structs; got %v", rv.Type())
 	}
 	fv := reflect.ValueOf(ider)
-	if fv.Kind() != reflection || fv.Type().NumIn() != 1 || fv.Type().NumOut() != 1 || fv.Type().Out(0) != reflect.TypeOf("") ||
+	if fv.Kind() != reflect.Func || fv.Type().NumIn() != 1 || fv.Type().NumOut() != 1 || fv.Type().Out(0) != reflect.TypeOf("") ||
 		(fv.Type().In(0) != rv.Elem().Type() &&
 			(fv.Type().In(0).Kind() == reflect.Interface &&
 				!rv.Elem().Type().Implements(fv.Type().In(0)))) {
