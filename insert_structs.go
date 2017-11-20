@@ -38,9 +38,9 @@ func InsertStructs(ctx context.Context, client *bigquery.Client, dataset, table 
 	MakeOptional(schema)
 
 	ds := client.Dataset(dataset)
-	ds.Create(ctx) // Ignore error, which is returned if the dataset already exists.
+	ds.Create(ctx, nil) // Ignore error, which is returned if the dataset already exists.
 	t := ds.Table(table)
-	t.Create(ctx, bigquery.UseStandardSQL()) // Ignore error, which is returned if the table already exists.
+	t.Create(ctx, nil) // Ignore error, which is returned if the table already exists.
 	md, err := t.Metadata(ctx)
 	if err != nil {
 		return err
